@@ -1,0 +1,31 @@
+<div nz-row style="padding-left:24px;" [@routeAnimation]>
+  <div style="overflow:auto;padding:24px 8px;border-right: 1px solid #e6ebef;" #mydetailsContent>
+    <div style="margin-bottom: 12px;">
+        <input type="text" style="width:280px;margin-right:10px;" [(ngModel)]="keywords" (ngModelChange)="search()" nz-input placeholder="input search text" />
+        <button nz-button nzType="primary" (click)="search()">搜索</button>
+    </div>
+    <nz-table [nzNoResult]="' '">
+      <thead>
+        <tr>
+          <th style="width: 120px;">错误类型</th>
+          <th style="width: 90px;">日志类型</th>
+          <th style="width: 260px;">错误页面</th>
+          <th style="width: 160px;">上报时间</th>
+          <th>错误详情</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of apiListData">
+          <td><code>{{data.SubCategory}}</code></td>
+          <td><code>{{data.LogType}}</code></td>
+          <td><code>{{data.url}}</code></td>
+          <td><code>{{ data.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</code></td>
+          
+          <td><code>{{data.LogInfo}}</code></td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <div (click)="getData()" *ngIf="apiListData.length<total" style="text-align:center;padding:4px;cursor: pointer;">加载更多</div>
+    <div *ngIf="apiListData.length===total" style="text-align:center;padding:4px;cursor: pointer;">无更多数据</div>
+  </div>
+</div>
