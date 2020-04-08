@@ -12,3 +12,26 @@
         }
     }
 }
+.editAppName{
+    position: absolute;
+    top: 4px;
+    left: 30px;
+    width: 72%;
+    border: none;
+    border-bottom: 1px solid #1890ff;
+    background: #fafafa;
+    transition: all 0.3s;
+}
+.saveEditAppName{
+    position: absolute;
+    top: 4px;
+    right: 14px;
+    width: 36px;
+    height: 32px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+}
+/deep/.ant-card-head-title{
+    position: relative;
+}

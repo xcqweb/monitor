@@ -115,7 +115,7 @@ export class CustomHighchartComponent implements OnInit {
         gridLineWidth: 0,
         alternateGridColor: null,
         title: {
-          text: null
+          text: '速度 (ms)'
         }
       },
       tooltip: {
@@ -135,7 +135,14 @@ export class CustomHighchartComponent implements OnInit {
           marker: {
             enabled: false
           }
-        }
+        },
+        // column:{        
+        //   shadow: false,
+        //   dataLabels:{
+        //     enabled:true,
+        //     fontSize: '12px',
+        //   }
+        // }
       }
     }, this.highConfig.ext));
   }

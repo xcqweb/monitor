@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule,ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { NgZorroAntdModule,NZ_I18N, zh_CN } from 'ng-zorro-antd';
+import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 registerLocaleData(zh);
@@ -13,16 +13,30 @@ import { JwtInterceptorService, Broadcaster, ConfigService, UserService } from '
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { PublicModule } from './public/public.module';
-declare var window:any
+declare var window: any;
 const routes: Routes = [
-  { path: '', pathMatch:'full',redirectTo:'home' },
-  { path: 'home', loadChildren:'app/homepage/homepage.module#HomepageModule' },
-  { path: 'dashboard', loadChildren:'app/dashboard/dashboard.module#DashboardModule' },
-  { path: 'sys/:appKey', loadChildren:'app/web/web.module#WebModule' }
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: 'home', loadChildren: 'app/homepage/homepage.module#HomepageModule' },
+  { path: 'dashboard', loadChildren: 'app/dashboard/dashboard.module#DashboardModule' },
+  { path: 'sys/:appKey', loadChildren: 'app/web/web.module#WebModule' }
 ]; 
 export class MyErrorHandler implements ErrorHandler {
   handleError(error) {
-    console.error(error);
+    // console.error(error);
+    switch (error.status) {
+      case 401: // 未登录状态码
+      const setCookie = function(cname, cvalue, exdays) {
+          const d = new Date();
+          d.setTime(d.getTime() + (exdays*24*60*60*1000));
+          const expires = 'expires='+d.toUTCString();
+          document.cookie = cname + '=' + cvalue + '; ' + expires;
+      };
+      window.location.href = '/home';
+      setCookie('token', '', -1);
+      setCookie('refreshToken', '', -1);
+      setCookie('user', '', -1);
+      break;
+    }
     window.__ml && window.__ml.error && window.__ml.error(error.stack || error);
   }
 }
@@ -38,7 +52,7 @@ export class MyErrorHandler implements ErrorHandler {
     RouterModule.forRoot(routes),
     NgZorroAntdModule.forRoot()
   ],
-  providers: [UserService,CookieService,{ provide: NZ_I18N, useValue: zh_CN },{ provide: ErrorHandler, useClass: MyErrorHandler },ConfigService, { provide: LocationStrategy, useClass: HashLocationStrategy }, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true }, Broadcaster],
+  providers: [UserService, CookieService, { provide: NZ_I18N, useValue: zh_CN }, { provide: ErrorHandler, useClass: MyErrorHandler }, ConfigService, { provide: LocationStrategy, useClass: HashLocationStrategy }, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true }, Broadcaster],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

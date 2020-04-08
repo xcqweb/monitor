@@ -1,7 +1,7 @@
 <nz-tabset style="height: 550px;">
   <nz-tab [nzTitle]="'堆栈详情'">
-    <div style="display:inline-block;width:50%;height: 550px;overflow: auto;padding: 8px;" [innerHTML]="data.error">
-    </div>
+    <code style="display:inline-block;width:50%;height: 550px;overflow: auto;padding: 8px;background:#000;color:#fff" [innerHTML]="data.error">
+    </code>
     <div style="display:inline-block;width:50%;vertical-align: top;height: 550px;overflow: auto;padding: 8px;">
       <h5>提示：如果源文件经过压缩，可以使用此功能更快找到出错位置。要求上传对应的 *.map文件,此文件不会上传服务器。</h5>
       <form id="myForm">

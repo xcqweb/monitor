@@ -181,13 +181,15 @@ export class VisitSpeedComponent implements OnInit {
       fpt: [],
       tti: [],
       ready: [],
-      load: []
+      load: [],
+      bkt: [],
     };
     _.each(data, (val) => {
       tempData.fpt.push([new Date(val.createTime).getTime(), parseInt(val.fpt)]);
       tempData.tti.push([new Date(val.createTime).getTime(), parseInt(val.tti)]);
       tempData.ready.push([new Date(val.createTime).getTime(), parseInt(val.ready)]);
       tempData.load.push([new Date(val.createTime).getTime(), parseInt(val.load)]);
+      tempData.bkt.push([new Date(val.createTime).getTime(), parseInt(val.bkt)]);
     });
     this.key_perf_config = {
       type: 10,
@@ -201,7 +203,15 @@ export class VisitSpeedComponent implements OnInit {
           tooltip: {
             valueSuffix: 'ms'
           }
-        }, {
+        }, 
+        {
+          name: '白屏时间',
+          data: tempData.bkt,
+          tooltip: {
+            valueSuffix: 'ms'
+          }
+        },
+        {
           name: '首次可交互时间',
           data: tempData.tti,
           tooltip: {
@@ -250,7 +260,8 @@ export class VisitSpeedComponent implements OnInit {
       ttfb: [],
       trans: [],
       dom: [],
-      res: []
+      res: [],
+      bkt: [],
     };
     _.each(data, (val) => {
       tempData.dns.push([new Date(val.createTime).getTime(), parseInt(val.dns)]);
@@ -259,6 +270,7 @@ export class VisitSpeedComponent implements OnInit {
       tempData.trans.push([new Date(val.createTime).getTime(), parseInt(val.trans)]);
       tempData.dom.push([new Date(val.createTime).getTime(), parseInt(val.dom)]);
       tempData.res.push([new Date(val.createTime).getTime(), parseInt(val.res)]);
+      tempData.bkt.push([new Date(val.createTime).getTime(), parseInt(val.bkt)]);
     });
     this.area_perf_config = {
       type: 10,

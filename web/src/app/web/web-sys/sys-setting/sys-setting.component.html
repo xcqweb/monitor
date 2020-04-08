@@ -7,7 +7,19 @@
     <label>{{currentSite.appKey}}</label>
   </div>
   <div class="setting-gutter">
-    手动上报API数据:
+    前端项目部署服务的IP地址或域名: &nbsp;
+    <input style="width:480px;"
+      [(ngModel)]="currentSite.site" nz-input placeholder="请输入IP地址或域名">
+      &nbsp;<button nz-button nzType="primary" (click)="settingChange4($event)">保存配置</button>
+  </div>
+  <div class="setting-gutter">
+    监控项目部署服务的IP地址或域名: &nbsp;
+    <input style="width:480px;"
+      [(ngModel)]="currentSite.monitorSite" nz-input placeholder="请输入IP地址或域名">
+      &nbsp;<button nz-button nzType="primary" (click)="settingChange4($event)">保存配置</button>
+  </div>
+  <div class="setting-gutter">
+    手动上报API数据: &nbsp;
     <label nz-checkbox (ngModelChange)="settingChange1($event)" [ngModel]="currentSite.disableHook">勾选此项后，需手动调用
       __ml.api() 方法上报API成功率。</label>
   </div>
@@ -34,49 +46,54 @@
           nzCheckedChildren="开" nzUnCheckedChildren="关"></nz-switch>
       </p>
       <div>
-        最近分钟：N=<input style="width:100px;" [disabled]="!jsErrorAlarm.alarmState" [(ngModel)]="jsErrorAlarm.alarmTimes"
+        最近分钟：N = <input style="width:100px;" [disabled]="!jsErrorAlarm.alarmState" [(ngModel)]="jsErrorAlarm.alarmTimes"
           nz-input placeholder="单位：分钟">，错误率大于 <nz-input-number [disabled]="!jsErrorAlarm.alarmState"
-          [(ngModel)]="jsErrorAlarm.alarmLimit" [nzMin]="0" style="width:80px;" placeholder="阈值"></nz-input-number>
+          [(ngModel)]="jsErrorAlarm.alarmLimit" [nzMin]="0" style="width:80px;" placeholder="阈值"></nz-input-number> 
         %，触发JS错误报警。接收人：<input style="width:200px;" [disabled]="!jsErrorAlarm.alarmState"
-          [(ngModel)]="jsErrorAlarm.email" nz-input placeholder="邮箱"><a (click)="jsErrorUpdate()"> 保存配置</a>
+          [(ngModel)]="jsErrorAlarm.email" nz-input placeholder="邮箱">
+          &nbsp;<button nz-button nzType="primary" (click)="jsErrorUpdate()">保存配置</button>
       </div>
     </div>
     <div class="setting-gutter">
       <p>API错误率报警: &nbsp;<nz-switch style="vertical-align: bottom;" [(ngModel)]="apiErrorAlarm.alarmState"
           nzCheckedChildren="开" nzUnCheckedChildren="关"></nz-switch>
         <div>
-          最近分钟：N=<input style="width:100px;" [disabled]="!apiErrorAlarm.alarmState"
+          最近分钟：N = <input style="width:100px;" [disabled]="!apiErrorAlarm.alarmState"
             [(ngModel)]="apiErrorAlarm.alarmTimes" nz-input placeholder="单位：分钟">，错误率大于 <nz-input-number [nzMin]="0"
             style="width:80px;" [disabled]="!apiErrorAlarm.alarmState" [(ngModel)]="apiErrorAlarm.alarmLimit"
-            placeholder="阈值"></nz-input-number>%，触发API错误报警。接收人：<input style="width:200px;"
-            [disabled]="!apiErrorAlarm.alarmState" [(ngModel)]="apiErrorAlarm.email" nz-input placeholder="邮箱"><a
-            (click)="apiErrorUpdate()"> 保存配置</a>
+            placeholder="阈值"></nz-input-number> %，触发API错误报警。接收人：<input style="width:200px;"
+            [disabled]="!apiErrorAlarm.alarmState" [(ngModel)]="apiErrorAlarm.email" nz-input placeholder="邮箱">
+            &nbsp;<button nz-button nzType="primary" (click)="apiErrorUpdate()">保存配置</button>
         </div>
     </div>
     <div class="setting-gutter">
       <p>Perf访问速度报警: &nbsp;<nz-switch style="vertical-align: bottom;" [(ngModel)]="perfSpeedAlarm.alarmState"
           nzCheckedChildren="开" nzUnCheckedChildren="关"></nz-switch>
         <div>
-          最近分钟：N=<input style="width:100px;" [disabled]="!perfSpeedAlarm.alarmState"
+          最近分钟：N = <input style="width:100px;" [disabled]="!perfSpeedAlarm.alarmState"
             [(ngModel)]="perfSpeedAlarm.alarmTimes" nz-input placeholder="单位：分钟">，Perf访问速度大于 <nz-input-number
             [nzMin]="0" style="width:80px;" [disabled]="!perfSpeedAlarm.alarmState"
-            [(ngModel)]="perfSpeedAlarm.alarmLimit" placeholder="阈值"></nz-input-number>ms,触发访问速度报警。接收人：<input
+            [(ngModel)]="perfSpeedAlarm.alarmLimit" placeholder="阈值"></nz-input-number> ms,触发访问速度报警。接收人：<input
             style="width:200px;" [disabled]="!perfSpeedAlarm.alarmState" [(ngModel)]="perfSpeedAlarm.email" nz-input
-            placeholder="邮箱"><a (click)="perfSpeedUpdate()"> 保存配置</a>
+            placeholder="邮箱">
+            &nbsp;<button nz-button nzType="primary" (click)="perfSpeedUpdate()">保存配置</button>
         </div>
     </div>
     <nz-divider></nz-divider>
   </div>
-  <h3>复制/粘贴BI探针</h3>
+  <!-- <h3>复制/粘贴BI探针</h3>
   <p>复制下方的代码，将其粘贴在页面HTML的body中。</p>
   <p style="margin-bottom: 4px;">注意1：需要将代码粘贴在body内容的第一行。</p>
   <p>注意2：如果站点是https协议，请下载此<a href="http://hubing.online:8082/bundle.js"
-      target="_blank">bundle.js</a>，部署到您的https站点，并使用服务器路径替换当前探针文件路径，如需帮助请联系作者。</p>
-  <div class="setting-code">
+      target="_blank">bundle.js</a>，部署到您的https站点，并使用服务器路径替换当前探针文件路径，如需帮助请联系作者。</p> -->
+    <h3>快速开始</h3>
+<div class="setting-code">
+  <pre>
     <code>
-      {{setting.code}}
+      {{tip.code2}} 
     </code>
-  </div>
+  </pre>
+</div>
   <nz-divider></nz-divider>
   <h3>示例展示</h3>
   <p>1.在Angular2+中使用__ml.error(),在你应用的根模块中加载下面代码：</p>
@@ -89,13 +106,13 @@
   </div>
   <br>
   <p>2.手动上报API成功率__ml.api(api,success, time, code, msg)：</p>
-  <div class="setting-code">
-    <pre>
-        api:请求接口
-        success:上传是否成功(true/false )
-        time:耗时(ms)
-        code:返回码
-        msg:消息(string/object)
-    </pre>
-  </div>
+<div class="setting-code">
+  <pre>
+    api:请求接口
+    success:上传是否成功(true/false )
+    time:耗时(ms)
+    code:返回码
+    msg:消息(string/object)
+  </pre>
+</div>
 </div>

@@ -1,5 +1,5 @@
 {
-    "name": "monitor-web",
+    "name": "getech-monitor-web",
     "version": "0.0.0",
     "license": "MIT",
     "scripts": {
@@ -8,7 +8,10 @@
         "build": "ng build --prod",
         "test": "ng test",
         "lint": "ng lint",
-        "e2e": "ng e2e"
+        "e2e": "ng e2e",
+        "on": "pm2 start process.json",
+        "restart": "pm2 restart process.json",
+        "delete": "pm2 delete process.json"
     },
     "private": true,
     "dependencies": {

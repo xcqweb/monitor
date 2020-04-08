@@ -75,12 +75,11 @@
         </div>
       </div>
     </div>
-    <div *ngIf="currentSelected" nz-row style="padding-top:32px;">
+    <div *ngIf="currentSelected && currentSelected.SubCategory ==='js_error'" nz-row style="padding-top:32px;">
       <button nz-button (click)="errorTrack()">错误场景还原</button>
     </div>
-    <div *ngIf="currentSelected" nz-row style="padding:16px 0px;">
-      <div [innerHTML]="currentSelected?.error">
-      </div>
+    <div *ngIf="currentSelected" nz-row style="padding:16px;margin-top:12px;background:#000;color:#fff;border-radius:4px;">
+      <code [innerHTML]="currentSelected?.error"></code>
     </div> 
   </div>
 </div>

@@ -49,7 +49,8 @@ export class SysSettingComponent implements OnInit {
     alarmLimit: null
   };
   tip = {
-    code1: null
+    code1: null,
+    code2: null,
   };
   unsub: any = null;
   currentSite: any = {};
@@ -82,7 +83,23 @@ export class SysSettingComponent implements OnInit {
       bootstrap: []
     })
     export class AppModule { }
-    `
+    `;
+    this.tip.code2 = `
+      npm安装方式:
+      npm install getech-monitor --save
+      项目中使用:
+      import monitor from 'getech-monitor'
+      monitor(config); //config为配置项
+      config = {
+        upUrl: '', //上报地址 (指定上报地址后查询后台返回的上报地址会时效)
+        getAppkeyUrl: '', //获取项目ID和上报地址 必传
+        consoleError: true, //配置是否需要记录console.error错误信息默认为true
+        vueError: true, //配置是否需要记录vue错误信息默认为true
+        promiseError: false, //默认false
+        ajaxError: false, //默认为false
+        debugger: false, //默认为false 开启debugger
+      }
+    `;
     this.getSites();
   }
 
@@ -100,6 +117,11 @@ export class SysSettingComponent implements OnInit {
 
   settingChange3(data) {
     this.currentSite.disableResource = data;
+    this.generateCode();
+    this.setSite();
+  }
+
+  settingChange4(data) {
     this.generateCode();
     this.setSite();
   }
@@ -151,7 +173,10 @@ export class SysSettingComponent implements OnInit {
     });
   }
   private setSite() {
-    this.http.post("Monitor/SiteSet", this.currentSite).subscribe((d: any) => {
+    this.currentSite.site = this.currentSite.site.replace(/(^\s*)|(\s*$)/g, '');
+    this.currentSite.monitorSite = this.currentSite.monitorSite.replace(/(^\s*)|(\s*$)/g, '');
+    this.http.post('Monitor/SiteSet', this.currentSite).subscribe((d: any) => {
+      this.msg.success("设置成功!");
     });
   }
 
@@ -238,7 +263,7 @@ export class SysSettingComponent implements OnInit {
     this.setting.code = `<script>
     !(function (c, b, d, a) {
       c[a] || (c[a] = {});
-      c[a].config = { userId: '${this.currentSite.userId ? this.currentSite.userId : ''}',appKey: '${this.currentSite.appKey}', imgUrl: '${this.setting.backendUrl}?',disableHook:${this.currentSite.disableHook}, disableJS:${this.currentSite.disableJS},disableResource:${this.currentSite.disableResource ? true : false} };
+      c[a].config = { userId: '${this.currentSite.userId ? this.currentSite.userId : ''}',appKey: '${this.currentSite.appKey}', imgUrl: '${this.setting.backendUrl}?',disableHook:${this.currentSite.disableHook},site: ${this.currentSite.site}, disableJS:${this.currentSite.disableJS},disableResource:${this.currentSite.disableResource ? true : false} };
       var dom = document.createElement("script");
       dom.setAttribute("crossorigin", "anonymous");
       dom.setAttribute("src", d);

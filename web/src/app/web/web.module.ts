@@ -14,6 +14,7 @@ import { VisitPageComponent } from './web-sys/visit-page/visit-page.component';
 import { VisitSpeedComponent } from './web-sys/visit-speed/visit-speed.component';
 import { JsErrorComponent } from './web-sys/js-error/js-error.component';
 import { ApiRequestComponent } from './web-sys/api-request/api-request.component';
+import { LogRequestComponent } from './web-sys/log/log-request.component';
 import { VisitDetailsComponent } from './web-sys/visit-details/visit-details.component';
 import { VisitGeoComponent } from './web-sys/visit-geo/visit-geo.component';
 import { VisitOsComponent } from './web-sys/visit-os/visit-os.component';
@@ -24,7 +25,7 @@ const routes: Routes = [
   {
     path: '', component: WebSysComponent, children: [
       { path: '', redirectTo: 'index' },
-      //应用总览
+      // 应用总览
       { path: 'index', component: SysIndexComponent },
       // 设置
       { path: 'setting', component: SysSettingComponent },
@@ -40,6 +41,8 @@ const routes: Routes = [
       { path: 'jsError', component: JsErrorComponent },
       // api请求
       { path: 'apiReq', component: ApiRequestComponent },
+      // 日志
+      { path: 'log', component: LogRequestComponent },
       // 地理
       { path: 'visitGeo', component: VisitGeoComponent },
       // 终端
@@ -61,6 +64,6 @@ const routes: Routes = [
     PublicModule
   ],
   entryComponents:[JsErrorTrackComponent],
-  declarations: [BackendLogComponent,WebSysComponent, SysIndexComponent, SysSettingComponent, VisitPageComponent, VisitSpeedComponent, JsErrorComponent, ApiRequestComponent, ResourceLoadDetailsComponent, VisitDetailsComponent, VisitGeoComponent, VisitOsComponent, UserPathComponent, JsErrorTrackComponent]
+  declarations: [BackendLogComponent,WebSysComponent, SysIndexComponent, SysSettingComponent, VisitPageComponent, VisitSpeedComponent, JsErrorComponent, ApiRequestComponent, LogRequestComponent, ResourceLoadDetailsComponent, VisitDetailsComponent, VisitGeoComponent, VisitOsComponent, UserPathComponent, JsErrorTrackComponent]
 })
 export class WebModule { }

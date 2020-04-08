@@ -90,6 +90,11 @@ export class WebSysComponent {
       isActive: false,
       icon: 'file'
     }, {
+      label: '日志',
+      value: 'log',
+      isActive: false,
+      icon: 'file'
+    }, {
       label: '应用设置',
       value: 'setting',
       isActive: false,

@@ -1,6 +1,6 @@
 <nz-spin [nzSpinning]="isSpinning" *ngIf="validUser">
     <div style="margin-top:50px;min-height: 500px;padding:24px;">
-        <nz-alert style="padding:6px 0;font-size:12px;" nzBanner nzMessage="提示：对于用户创建的测试项目，如长时间未使用，系统将定时删除，如需帮助请联系作者。"></nz-alert>
+        <!-- <nz-alert style="padding:6px 0;font-size:12px;" nzBanner nzMessage="提示：对于用户创建的测试项目，如长时间未使用，系统将定时删除，如需帮助请联系作者。"></nz-alert> -->
         <p style="text-align:right">
             <button nz-button nzType="primary" (click)="addSys()">新建应用站点</button>
         </p>
@@ -18,10 +18,16 @@
                     <app-custom-highchart [config]="item.pv_uv_config"></app-custom-highchart>
                 </nz-card>
                 <ng-template #emplateTitle>
-                    <a (click)="gotoSys(item)">{{item.appName}}</a>
+                    <a (click)="gotoSys(item, $event)" title="首页"><i class="anticon anticon-line-chart"></i></a>&nbsp;
+                    <a #elseBlock *ngIf="!item.isEdit; else elseBlock" (click)="edit(item)" title="编辑"><span (click)="gotoSys(item, $event, 'self')">{{item.appName}}</span>&nbsp;&nbsp;&nbsp;<i class="anticon anticon-edit"></i></a>
+                    <ng-template #elseBlock>
+                        <input class="editAppName" nz-input [(ngModel)]="editSiteName" name="editSiteName">
+                        <button class="saveEditAppName" nz-button nzType="primary" (click)="saveAppName(item)">保存</button>
+                    </ng-template>
                 </ng-template>
                 <ng-template #extraTemplate>
-                    <i class="anticon anticon-setting" style="cursor: pointer;" (click)="gotoSysSetting(item)"></i>
+                    <i class="anticon anticon-setting" title="配置" style="cursor: pointer;" (click)="gotoSysSetting(item)"></i>&nbsp;&nbsp;&nbsp;
+                    <i class="anticon anticon-delete" title="删除" style="cursor: pointer;" (click)="delSetting(item)"></i>
                 </ng-template>
             </div>
         </div>
@@ -32,15 +38,30 @@
 
 <nz-modal [nzMaskClosable]="false" [nzOkText]="'确认'" [nzCancelText]="'取消'" [(nzVisible)]="isVisible_add" nzTitle="新建应用站点" (nzOnCancel)="cancel()" (nzOnOk)="save()">
     <nz-form-item>
-        <nz-form-label [nzSm]="4" [nzXs]="24">站点名称</nz-form-label>
-        <nz-form-control [nzSm]="18" [nzXs]="24">
+        <nz-form-label [nzSm]="6" [nzXs]="24">站点名称</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
             <input nz-input [(ngModel)]="appName" name="title">
         </nz-form-control>
     </nz-form-item>
-    <!-- <nz-form-item>
-      <nz-form-label [nzSm]="4" [nzXs]="24">业务系统ID</nz-form-label>
-      <nz-form-control [nzSm]="18" [nzXs]="24">
-        <input nz-input [(ngModel)]="systemId" name="systemId">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">监控项目</nz-form-label>
+      <nz-form-control [nzSm]="16" [nzXs]="24">
+        <input nz-input [(ngModel)]="monitor" name="monitor">
+        <p style="height: 0;font-size:12px;color:#f00;">监控项目部署的服务IP/域名</p>
       </nz-form-control> 
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">前端IOT</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+            <input nz-input [(ngModel)]="iot" name="iot">
+            <p style="height: 0;font-size:12px;color:#f00;">前端IOT项目部署在的服务IP/域名</p>
+        </nz-form-control> 
+    </nz-form-item>
+    <!-- <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">站点ID(选填)</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+            <input nz-input [(ngModel)]="systemId" name="systemId">
+            <p style="height: 0;font-size:12px;color:#f00;">默认自动生成ID</p>
+        </nz-form-control> 
     </nz-form-item> -->
 </nz-modal>

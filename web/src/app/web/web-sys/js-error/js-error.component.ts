@@ -174,7 +174,7 @@ export class JsErrorComponent implements OnInit {
       nzContent: JsErrorTrackComponent,
       nzZIndex:3000,
       nzBodyStyle:{
-        padding:0
+        padding:0,
       },
       nzComponentParams: {
         data:this.currentSelected
