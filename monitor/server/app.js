@@ -17,7 +17,7 @@ const os = require('os');
 const app = express();
 const router = express.Router();
 const NODE_ENV = process.env.NODE_ENV ;
-const vDir = "/livechatcust";  //虚拟目录12123
+const vDir = "/livechatcust";  //虚拟目录1212334
 
 var appInfo = {
 
